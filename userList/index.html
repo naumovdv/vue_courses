@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <title>Список пользователей</title>
   <meta charset="utf-8">
   <script data-require="vue.js@*" data-semver="10.0.26" src="https://vuejs.org/js/vue.js"></script>
   <script src="https://unpkg.com/v-tooltip"></script>
@@ -15,13 +16,16 @@
 <body>
   <div class="container">
     <div id="app">
-      <user-list :users="users"></user-list>
+      <h1>Список пользователей</h1>
+      <div v-if="!users.length" class="alert alert-warning">
+        Загрузка...
+      </div>
+      <user-list v-else v-bind:users="users"></user-list>
     </div>
   </div>
 
   <template id="userList">
     <div>
-      <h1>{{ title }} {{ countUsersText }}</h1>
       <div class="tableControls">
         <button 
           class="btn btn-secondary" 
@@ -41,6 +45,7 @@
                 </th>
               </template>
             </template>
+            <th></th>
           </tr>
         </thead>
         <tbody v-if="isVisibleUserList">
@@ -50,6 +55,9 @@
                 <td v-html="getContentByFieldIndexAndUser(n - 1, user)"></td>
               </template>
             </template>
+            <td>
+              <a :href="getUserLink(user.id)" target="_blank">Редактировать</a>
+            </td>
           </tr>
         </tbody>
       </table>
