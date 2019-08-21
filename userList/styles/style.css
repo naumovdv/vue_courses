@@ -1,59 +1,5 @@
-html, body {
-  font-family: Helvetica;
-}
-
 [v-cloak] {
   display: none;
-}
-
-.users {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.users td {
-  padding: 5px;
-}
-
-.users tbody tr:nth-child(odd) {
-  background-color: darkgrey;
-}
-
-.users tbody tr:nth-child(even) {
-  background-color: lightgrey;
-}
-
-.users th {
-  padding: 10px 5px;
-  background: grey;
-}
-
-
-.text-center {
-  text-align: center;
-}
-
-button {
-  border: 1px solid grey;
-  background-color: lightgrey;
-  border-radius: 4px;
-  padding: 5px 10px;
-  outline: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: inline-block;
-  background-repeat: none;
-  background-size: contain;
-  background-position: center;
 }
 
 .tableControls {

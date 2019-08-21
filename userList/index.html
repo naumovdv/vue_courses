@@ -2,67 +2,54 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <script data-require="vue.js@*" data-semver="10.0.26" src="https://vuejs.org/js/vue.js"></script>
   <script src="https://unpkg.com/v-tooltip"></script>
   <script src="https://cdn.jsdelivr.net/npm/v-copy/dist/v-copy.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./styles/style.css" />
   <link rel="stylesheet" href="./styles/tooltip.css" />
 </head>
 
 <body>
-  <div id="app">
-    <user-list :users="users"></user-list>
+  <div class="container">
+    <div id="app">
+      <user-list :users="users"></user-list>
+    </div>
   </div>
 
   <template id="userList">
     <div>
       <h1>{{ title }} {{ countUsersText }}</h1>
       <div class="tableControls">
-        <button @click="toggleUserList" v-tooltip="toggleButtonTooltip">{{ toggleButtonText }}</button>
+        <button 
+          class="btn btn-secondary" 
+          @click="toggleUserList" 
+          v-tooltip="toggleButtonTooltip"
+        >
+          {{ toggleButtonText }}
+        </button>
       </div>
-      <table class="users">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th class="text-center">
-              ID
-              </th">
-            <th class="text-center">
-              Фото
-            </th>
-            <th>
-              Имя
-            </th>
-            <th>
-              Фамилия
-            </th>
-            <th>
-              Отчество
-            </th>
-            <th></th>
+            <template v-for="n in countFieldsOfUserVisible">
+              <template v-if="isUserFieldByIndex(n)">
+                <th class="text-uppercase">
+                  {{ userFields[n - 1] }}
+                </th>
+              </template>
+            </template>
           </tr>
         </thead>
         <tbody v-if="isVisibleUserList">
           <tr v-for="user in users" :key="user.id">
-            <td class="text-center">
-              {{ user.id }}
-            </td>
-            <td class="text-center">
-              <img :src="getUserPhotoURL(user.id)" class="avatar" :alt="getUserFullName(user.id)" />
-            </td>
-            <td>
-              {{ user.surname | uppercase }}
-            </td>
-            <td>
-              {{ user.name }}
-            </td>
-            <td>
-              {{ user.patronymic }}
-            </td>
-            <td class="text-center">
-              <button v-copy="getUserFullName(user.id)">
-                Копировать
-              </button>
-            </td>
+            <template v-for="n in countFieldsOfUserVisible">
+              <template v-if="isUserFieldByIndex(n)">
+                <td v-html="getContentByFieldIndexAndUser(n - 1, user)"></td>
+              </template>
+            </template>
           </tr>
         </tbody>
       </table>
@@ -70,8 +57,7 @@
   </template>
 </body>
 
-
-<!-- <script src="./scripts/userList.js"></script> -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./scripts/app.js"></script>
 
 </html>
