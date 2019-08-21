@@ -40,6 +40,9 @@
         return contentByType.hasOwnProperty(contentType)
           ? contentByType[contentType]()
           : user[this.userFields[index]];
+      },
+      getUserLink: function (userId) {
+        return `./../userForm/index.html?user_id=${userId}`;
       }
     },
     computed: {

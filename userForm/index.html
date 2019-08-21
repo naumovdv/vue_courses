@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script data-require="vue.js@*" data-semver="10.0.26" src="https://vuejs.org/js/vue.js"></script>
+  <title>Редактирование пользователя</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div id="app">
+      <h1>Редактирование пользователя</h1>
+      <div v-if="!user" class="alert alert-warning">
+        Загрузка...
+      </div>
+      <user-form v-else :user="user"></user-form>
+    </div>
+  </div>
+
+  <template id="userForm">
+    <div>
+      <form>
+        <template v-for="field in userFields">
+          <div class="form-group">
+            <label for="field" class="text-uppercase">{{ field }}</label>
+            <input v-model="user[field]" class="form-control" :id="field" :placeholder="field">
+          </div>
+        </template>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </form>
+
+    </div>
+  </template>
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./scripts/app.js"></script>
+
+</html>
